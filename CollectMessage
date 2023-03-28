@@ -1,0 +1,11 @@
+const fs = require('fs');
+const logStream = fs.createWriteStream('message-log.txt', { flags: 'a' });
+client.on('messageCreate', message => {
+    const server = message.guild.name;
+    const user = message.author.username;
+    const date = message.createdAt.toLocaleString('en-US', { timeZone: 'UTC' });
+    const content = message.content;
+    const logMessage = `[${server}][${date}] ${user} send message: ${content}\n`;
+    console.log(logMessage);
+    logStream.write(logMessage);
+  });
